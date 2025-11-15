@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Plataforma Educativa - Lógica y Argumentación</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+<style>
+    /* Fondo matemático */
+    body {
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: linear-gradient(to bottom right, #eef2ff, #ffffff);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Capa de fórmulas matemáticas */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://concepto.de/wp-content/uploads/2013/08/matematicas-e1551990322160-800x399.jpg');
+      background-size: 600px;
+      background-repeat: repeat;
+      opacity: 0.08;
+      z-index: -1;
+      animation: moveBackground 40s linear infinite;
+    }
+
+    /* Animación del fondo matemático */
+    @keyframes moveBackground {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-indigo-50 to-white text-slate-800 min-h-screen p-6">
+
+<!-- ====== LOGIN / REGISTRO (Versión Mejorada) ====== -->
+<div id="auth" class="max-w-md mx-auto bg-gradient-to-br from-white/95 to-indigo-50/90 backdrop-blur-xl rounded-3xl shadow-[0_10px_35px_rgba(99,102,241,0.2)] p-10 mt-16 border border-indigo-100">
+  <h2 id="authTitle" class="text-4xl font-extrabold text-indigo-700 mb-8 text-center tracking-tight drop-shadow-md">
+    Iniciar Sesión
+  </h2>
+
+  <!-- FORMULARIO LOGIN -->
+  <div id="loginForm">
+    <input id="loginEmail" type="email" placeholder="Correo electrónico" 
+      class="w-full p-3 border border-indigo-200 rounded-xl mb-4 bg-white/70 focus:bg-white focus:ring-2 focus:ring-indigo-400 outline-none transition duration-200 placeholder-slate-400">
+    
+    <input id="loginPass" type="password" placeholder="Contraseña" 
+      class="w-full p-3 border border-indigo-200 rounded-xl mb-4 bg-white/70 focus:bg-white focus:ring-2 focus:ring-indigo-400 outline-none transition duration-200 placeholder-slate-400">
+    
+    <button onclick="login()" 
+      class="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 text-white py-3 rounded-xl mb-4 shadow-lg hover:shadow-xl hover:from-indigo-700 hover:to-indigo-800 transition-transform transform hover:-translate-y-1 font-semibold tracking-wide">
+      Entrar
+    </button>
+    
+    <p class="text-sm text-center text-slate-500">
+      ¿No tienes cuenta? 
+      <button onclick="showRegister()" class="text-indigo-600 underline hover:text-indigo-800 transition font-medium">
+        Regístrate
+      </button>
+    </p>
+    <p id="loginError" class="text-center text-red-600 text-sm mt-3"></p>
+  </div>
+
+  <!-- FORMULARIO REGISTRO -->
+  <div id="registerForm" class="hidden">
+    <input id="regName" type="text" placeholder="Nombre completo" 
+      class="w-full p-3 border border-indigo-200 rounded-xl mb-4 bg-white/70 focus:bg-white focus:ring-2 focus:ring-indigo-400 outline-none transition duration-200 placeholder-slate-400">
+    
+    <input id="regEmail" type="email" placeholder="Correo electrónico" 
+      class="w-full p-3 border border-indigo-200 rounded-xl mb-4 bg-white/70 focus:bg-white focus:ring-2 focus:ring-indigo-400 outline-none transition duration-200 placeholder-slate-400">
+    
+    <input id="regPass" type="password" placeholder="Contraseña" 
+      class="w-full p-3 border border-indigo-200 rounded-xl mb-4 bg-white/70 focus:bg-white focus:ring-2 focus:ring-indigo-400 outline-none transition duration-200 placeholder-slate-400">
+    
+    <input id="regConfirm" type="password" placeholder="Confirmar contraseña" 
+      class="w-full p-3 border border-indigo-200 rounded-xl mb-5 bg-white/70 focus:bg-white focus:ring-2 focus:ring-indigo-400 outline-none transition duration-200 placeholder-slate-400">
+    
+    <button onclick="register()" 
+      class="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 text-white py-3 rounded-xl mb-4 shadow-lg hover:shadow-xl hover:from-indigo-700 hover:to-indigo-800 transition-transform transform hover:-translate-y-1 font-semibold tracking-wide">
+      Crear cuenta
+    </button>
+    
+    <p class="text-sm text-center text-slate-500">
+      ¿Ya tienes cuenta? 
+      <button onclick="showLogin()" class="text-indigo-600 underline hover:text-indigo-800 transition font-medium">
+        Inicia sesión
+      </button>
+    </p>
+    <p id="registerError" class="text-center text-red-600 text-sm mt-3"></p>
+  </div>
+</div>
+
+
+<!-- ====== MENÚ PRINCIPAL (versión mejorada con fondo matemático animado) ====== -->
+<div id="menu" class="hidden max-w-6xl mx-auto p-8 rounded-3xl shadow-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50 to-purple-100 relative overflow-hidden">
+
+  <!-- Fondo animado con fórmulas -->
+  <div class="absolute inset-0 bg-[url('https://concepto.de/wp-content/uploads/2013/08/matematicas-e1551990322160-800x399.jpg')] bg-repeat opacity-5 animate-[moveBackground_40s_linear_infinite]"></div>
+  <style>
+    @keyframes moveBackground {
+      0% { background-position: 0 0; }
+      100% { background-position: 800px 800px; }
+    }
+  </style>
+
+  <!-- Contenido principal -->
+  <div class="relative z-10">
+    <header class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+      <div class="text-center md:text-left">
+        <h1 class="text-4xl font-extrabold text-indigo-800 drop-shadow-[0_4px_6px_rgba(0,0,0,0.2)] tracking-wide">
+          🎓 Plataforma Educativa Interactiva
+        </h1>
+        <p class="text-lg text-indigo-700 mt-2">
+          Bienvenido, 
+          <span id="userName" class="font-semibold underline decoration-yellow-400 underline-offset-4"></span>!
+        </p>
+      </div>
+
+      <button onclick="logout()" 
+        class="bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white font-semibold px-6 py-3 rounded-2xl shadow-lg transition transform hover:-translate-y-1 hover:scale-105 duration-200">
+        ⎋ Cerrar sesión
+      </button>
+    </header>
+
+    <div class="text-center my-10">
+      <button onclick="startCourse()" 
+        class="group bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 hover:from-yellow-400 hover:to-yellow-600 text-indigo-900 font-bold px-10 py-5 rounded-3xl text-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-1 hover:scale-105 duration-200 flex items-center justify-center mx-auto gap-3">
+        🚀 <span class="group-hover:translate-x-1 transition-transform">Iniciar Curso: Lógica y Argumentación</span>
+      </button>
+<button onclick="irMatematicas()"
+class="bg-green-500 text-white px-6 py-3 rounded-xl shadow hover:bg-green-600">
+  ➗ Ir al Curso de Matemáticas
+</button>
+
+      <div class="mt-6">
+        <p class="text-indigo-700 text-lg mb-2">
+          Progreso general: 
+          <span id="progressText" class="font-bold text-yellow-600">0%</span>
+        </p>
+        <div class="w-72 mx-auto bg-indigo-200/40 rounded-full h-4 overflow-hidden shadow-inner backdrop-blur-sm">
+          <div id="progressBar" class="bg-yellow-400 h-4 w-0 transition-all duration-700 ease-out rounded-full"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ====== CURSO ====== -->
+<div id="curso" class="hidden max-w-5xl mx-auto bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-indigo-200">
+  <button onclick="backToMenu()" class="text-indigo-600 mb-6 font-semibold hover:text-indigo-800 transition transform hover:scale-105">⬅ Volver al menú</button>
+  
+  <h2 class="text-3xl font-extrabold text-indigo-700 mb-6 drop-shadow-md text-center">Curso: Lógica y Argumentación</h2>
+  
+  <div id="chapters" class="grid md:grid-cols-2 gap-6">
+    <!-- Cada capítulo se agregará dinámicamente como tarjeta -->
+  </div>
+</div>
+
+
+  <!-- ====== CAPÍTULO ====== -->
+  <div id="capitulo" class="hidden max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-6">
+    <button onclick="backToCourse()" class="text-indigo-600 text-sm mb-3">⬅ Volver al curso</button>
+    <h1 id="titulo" class="text-2xl font-bold text-indigo-700 mb-4"></h1>
+    <div id="contenido" class="text-sm space-y-3"></div>
+
+    <div class="text-center mt-6">
+      <button id="btnPrueba" onclick="mostrarPrueba()" class="bg-indigo-600 text-white px-6 py-2 rounded-lg shadow hover:bg-indigo-700">
+        🧠 Iniciar prueba
+      </button>
+    </div>
+
+    <div id="practica" class="hidden mt-6 border-t pt-4">
+      <h2 class="font-semibold text-lg mb-2">🧠 Prueba interactiva</h2>
+      <div id="quiz"></div>
+      <div class="text-center mt-4">
+        <button id="btnTerminar" onclick="terminarPrueba()" class="bg-green-600 text-white px-6 py-2 rounded-lg shadow hover:bg-green-700">
+          ✅ Terminar prueba
+        </button>
+      </div>
+      <p id="resultado" class="mt-3 font-semibold text-center"></p>
+      <div id="calificacion" class="hidden mt-6 text-center">
+        <h3 class="text-lg font-bold text-indigo-700">📊 Tu Calificación</h3>
+        <div class="w-64 mx-auto bg-slate-200 rounded-full h-3 mt-2 overflow-hidden">
+          <div id="scoreBar" class="bg-indigo-600 h-3 w-0 transition-all"></div>
+        </div>
+        <p id="scoreText" class="mt-2 text-sm"></p>
+        <div class="flex justify-center gap-3 mt-4">
+          <button onclick="repetirPrueba()" class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600">🔁 Repetir prueba</button>
+          <button onclick="terminarCapitulo()" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">✅ Terminar capítulo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const USERS_KEY = "edu_users";
+    const SESSION_KEY = "edu_session";
+    const PROGRESS_KEY = "edu_progress";
+    const SCORES_KEY = "edu_scores";
+
+    let currentChapterId = null;
+
+    const chapters = [
+      {
+  id: 0,
+  title: "Introducción a la Lógica Proposicional",
+  theory: `
+    <div class="p-4">
+      <h2 class="text-2xl font-bold text-indigo-700 mb-4">🧠 Introducción a la Lógica Proposicional</h2>
+      <p>La <strong>Lógica Proposicional</strong> es la rama de la lógica que estudia cómo se combinan <strong>proposiciones o enunciados</strong> para formar <strong>argumentos válidos</strong>. Se centra en el <strong>valor de verdad</strong> de cada proposición —si es verdadera o falsa— y en cómo estos valores afectan a las conclusiones cuando se usan <strong>conectores lógicos</strong>.</p>
+      <p>A diferencia de otros tipos de lógica, la proposicional no analiza el contenido interno de las afirmaciones, sino <strong>su estructura y relación lógica</strong>.</p>
+      <hr class="my-4">
+
+      <h3 class="text-lg font-semibold">📘 ¿Qué es una proposición?</h3>
+      <p>Una <strong>proposición</strong> es un enunciado que puede ser <strong>verdadero (V)</strong> o <strong>falso (F)</strong>, pero nunca ambos.</p>
+      <ul class="list-disc ml-6">
+        <li>“El agua hierve a 100°C.” ✅ Verdadero</li>
+        <li>“2 + 2 = 5.” ✅ Falso</li>
+        <li>“Hoy llueve.” ✅ Puede ser verdadero o falso según la realidad</li>
+      </ul>
+      <p><strong>No son proposiciones:</strong></p>
+      <ul class="list-disc ml-6">
+        <li>“¡Cierra la puerta!” ❌ mandato</li>
+        <li>“¿Vendrás mañana?” ❌ pregunta</li>
+        <li>“¡Qué bonito día!” ❌ exclamación</li>
+      </ul>
+      <hr class="my-4">
+
+      <h3 class="text-lg font-semibold">⚙️ Conectores lógicos</h3>
+      <p>En lógica proposicional, se combinan proposiciones mediante <strong>conectores</strong>, que definen relaciones entre ellas:</p>
+      <table class="table-auto border-collapse border border-gray-300 w-full mt-2">
+        <thead>
+          <tr class="bg-indigo-100">
+            <th class="border border-gray-300 px-2 py-1">Conector</th>
+            <th class="border border-gray-300 px-2 py-1">Símbolo</th>
+            <th class="border border-gray-300 px-2 py-1">Lectura</th>
+            <th class="border border-gray-300 px-2 py-1">Ejemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="border border-gray-300 px-2 py-1">Negación</td><td class="border border-gray-300 px-2 py-1">¬</td><td class="border border-gray-300 px-2 py-1">“No”</td><td class="border border-gray-300 px-2 py-1">¬p → “No es p”</td></tr>
+          <tr><td class="border border-gray-300 px-2 py-1">Conjunción</td><td class="border border-gray-300 px-2 py-1">∧</td><td class="border border-gray-300 px-2 py-1">“Y”</td><td class="border border-gray-300 px-2 py-1">p ∧ q → “p y q son verdaderos”</td></tr>
+          <tr><td class="border border-gray-300 px-2 py-1">Disyunción</td><td class="border border-gray-300 px-2 py-1">∨</td><td class="border border-gray-300 px-2 py-1">“O”</td><td class="border border-gray-300 px-2 py-1">p ∨ q → “p o q (al menos uno es verdadero)”</td></tr>
+          <tr><td class="border border-gray-300 px-2 py-1">Condicional</td><td class="border border-gray-300 px-2 py-1">→</td><td class="border border-gray-300 px-2 py-1">“Si… entonces”</td><td class="border border-gray-300 px-2 py-1">p → q → “Si p es verdadero, entonces q también lo es”</td></tr>
+          <tr><td class="border border-gray-300 px-2 py-1">Bicondicional</td><td class="border border-gray-300 px-2 py-1">↔</td><td class="border border-gray-300 px-2 py-1">“Si y solo si”</td><td class="border border-gray-300 px-2 py-1">p ↔ q → “p es verdadero si y solo si q es verdadero”</td></tr>
+        </tbody>
+      </table>
+      <hr class="my-4">
+
+      <h3 class="text-lg font-semibold">🧩 Tablas de verdad</h3>
+      <p>Las <strong>tablas de verdad</strong> permiten determinar si una proposición compuesta es verdadera o falsa para todas las combinaciones posibles de valores de verdad.</p>
+      <p><strong>Ejemplo: Condicional (p → q)</strong></p>
+      <table class="table-auto border-collapse border border-gray-300 w-1/2 mt-2">
+        <thead><tr class="bg-indigo-100"><th class="border border-gray-300 px-2 py-1">p</th><th class="border border-gray-300 px-2 py-1">q</th><th class="border border-gray-300 px-2 py-1">p → q</th></tr></thead>
+        <tbody>
+          <tr><td class="border border-gray-300 px-2 py-1">V</td><td class="border border-gray-300 px-2 py-1">V</td><td class="border border-gray-300 px-2 py-1">V</td></tr>
+          <tr><td class="border border-gray-300 px-2 py-1">V</td><td class="border border-gray-300 px-2 py-1">F</td><td class="border border-gray-300 px-2 py-1">F</td></tr>
+          <tr><td class="border border-gray-300 px-2 py-1">F</td><td class="border border-gray-300 px-2 py-1">V</td><td class="border border-gray-300 px-2 py-1">V</td></tr>
+          <tr><td class="border border-gray-300 px-2 py-1">F</td><td class="border border-gray-300 px-2 py-1">F</td><td class="border border-gray-300 px-2 py-1">V</td></tr>
+        </tbody>
+      </table>
+      <hr class="my-4">
+
+      <h3 class="text-lg font-semibold">📹 Videos Introductorios</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/vKe0UKSpNQQ" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/kGCeqy9m2po" title="Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/8gCoQCkx9A0" title="Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/ZK8QUphO4MA" title="Video 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  `,
+  questionBank: []
+},
+
+
+      {
+        id: 1,
+        title: "Capítulo 1: Lógica y Argumentación",
+        theory: `
+        <p>El tema <b>“Lógica y argumentación”</b> es fundamental en filosofía, matemáticas y ciencias, porque enseña a <b>pensar con coherencia, analizar ideas y construir argumentos válidos</b>.
+        Aquí te dejo una explicación clara y ordenada:</p>
+        <hr class="my-4">
+
+        <h3 class="text-lg font-semibold">🧠 1. ¿Qué es la lógica?</h3>
+        <p>La <b>lógica</b> es la ciencia que estudia las <b>formas del pensamiento correcto</b>.
+        Sirve para distinguir entre razonamientos <b>válidos</b> e <b>inválidos</b>, sin importar el tema que se esté tratando.</p>
+
+        <p><b>Ejemplo:</b></p>
+        <ul class="list-disc ml-6 text-sm">
+          <li>Razonamiento correcto:<br>Todos los humanos son mortales.<br>Sócrates es humano.<br><b>Por lo tanto, Sócrates es mortal. ✅</b></li>
+          <li>Razonamiento incorrecto:<br>Todos los gatos son animales.<br>Mi perro es un animal.<br><b>Por lo tanto, mi perro es un gato. ❌</b></li>
+        </ul>
+
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold">💬 2. ¿Qué es un argumento?</h3>
+        <p>Un <b>argumento</b> es un conjunto de <b>proposiciones</b> (ideas o afirmaciones) donde:</p>
+        <ul class="list-disc ml-6 text-sm">
+          <li>Una de ellas es la <b>conclusión</b>, lo que se quiere demostrar.</li>
+          <li>Las otras son las <b>premisas</b>, que dan razones o evidencias para creer la conclusión.</li>
+        </ul>
+
+        <p><b>Ejemplo:</b><br>
+        Premisa 1: Estudiar mejora el rendimiento académico.<br>
+        Premisa 2: Juan estudia todos los días.<br>
+        <b>Conclusión:</b> Juan mejorará su rendimiento académico.</p>
+
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold">🧩 3. Tipos de razonamiento</h3>
+        <p>Existen dos principales tipos:</p>
+        <ol class="list-decimal ml-6 text-sm">
+          <li><b>Razonamiento deductivo:</b> Parte de lo general a lo particular.</li>
+          <li><b>Razonamiento inductivo:</b> Parte de casos particulares a conclusiones generales.</li>
+        </ol>
+
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold">⚖️ 4. Lógica y argumentación en la vida diaria</h3>
+        <p>Usamos la lógica para defender ideas, analizar argumentos y tomar decisiones racionales.</p>
+
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold">🧠 5. Errores comunes (falacias)</h3>
+        <p>Las <b>falacias</b> son errores en el razonamiento que parecen válidos, pero no lo son.</p>
+        <ul class="list-disc ml-6 text-sm">
+          <li><b>Ad hominem:</b> atacar a la persona, no al argumento.</li>
+          <li><b>Falsa causa:</b> confundir coincidencia con causa.</li>
+        </ul>
+<h4 class="text-lg font-semibold">📹 Video Explicativo</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/9-hLaXnF5WA" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+      </div>
+    </div>
+        `,
+        questionBank: [
+  {q:"¿Qué estudia la lógica?",a:["Las reglas del pensamiento correcto","El comportamiento humano","Las creencias personales"],correct:0},
+
+  {q:"¿Qué es un argumento?",a:["Un conjunto de premisas que apoyan una conclusión","Una discusión emocional","Una idea sin justificación"],correct:0},
+
+  {q:"¿Qué elemento NO forma parte de un argumento?",a:["Emociones","Premisas","Conclusión"],correct:0},
+
+  {q:"¿Qué es una premisa?",a:["Una afirmación que respalda una conclusión","Una opinión sin fundamento","La parte final del argumento"],correct:0},
+
+  {q:"La conclusión de un argumento es…",a:["La afirmación que las premisas intentan justificar","La primera premisa","Cualquier opinión del autor"],correct:0},
+
+  {q:"Un razonamiento válido se caracteriza por…",a:["La conclusión se sigue necesariamente de las premisas","La conclusión es verdadera","Las premisas son populares"],correct:0},
+
+  {q:"¿Cuál de las siguientes opciones es un argumento?",a:["Estudié mucho, por eso aprobé el examen.","¡Estudia más!","¿Aprobaré el examen?"],correct:0},
+
+  {q:"Una falacia es…",a:["Un error en el razonamiento","Una conclusión verdadera","Una premisa indiscutible"],correct:0},
+
+  {q:"La falacia Ad hominem consiste en…",a:["Atacar a la persona en vez del argumento","Apelar a la mayoría","Inventar una causa falsa"],correct:0},
+
+  {q:"La falacia de falsa causa ocurre cuando…",a:["Se atribuye una causalidad sin evidencia","Las premisas son verdaderas","La conclusión es obvia"],correct:0},
+
+  {q:"¿Qué es un razonamiento deductivo?",a:["Va de lo general a lo particular","Va de lo particular a lo general","Depende de emociones"],correct:0},
+
+  {q:"¿Qué es un razonamiento inductivo?",a:["Generaliza a partir de casos particulares","Pasa de lo general a lo particular","Garantiza conclusiones necesarias"],correct:0},
+
+  {q:"Una característica del buen argumento es…",a:["Claridad en premisas y conclusión","Uso de insultos","Citas sin contexto"],correct:0},
+
+  {q:"¿Cuál de las siguientes frases corresponde a una conclusión?",a:["Por lo tanto, debemos cuidarnos.","Los virus existen.","Los médicos recomiendan prevención."],correct:0},
+
+  {q:"Una premisa puede ser…",a:["Verdadera o falsa","Siempre verdadera","Siempre falsa"],correct:0},
+
+  {q:"Un argumento inválido es aquel en el que…",a:["Las premisas no garantizan la conclusión","La conclusión es verdadera","Las premisas son largas"],correct:0},
+
+  {q:"La lógica se utiliza principalmente para…",a:["Analizar la validez del razonamiento","Describir sentimientos","Escribir narraciones"],correct:0},
+
+  {q:"¿Qué relación deben tener las premisas con la conclusión?",a:["Pertinencia y coherencia","Popularidad","Complejidad"],correct:0},
+
+  {q:"'Todos los humanos son mortales. Juan es humano. Por tanto, Juan es mortal.' es un ejemplo de…",a:["Razonamiento deductivo válido","Razonamiento inductivo","Falacia"],correct:0},
+
+  {q:"¿Por qué es importante la lógica en la argumentación?",a:["Porque permite evaluar si un argumento es válido o no","Porque hace el discurso más largo","Porque obliga a estar de acuerdo"],correct:0}
+]
+
+
+      },
+
+      {
+        id: 2,
+        title: "Capítulo 2: El Silogismo Categórico",
+        theory: `
+        <h2 class="text-2xl font-bold text-indigo-700 mb-4">🧠 Silogismo Categórico</h2>
+        <p>El <b>silogismo categórico</b> es una forma de razonamiento <b>deductivo</b> que permite obtener una conclusión lógica a partir de dos proposiciones o <b>premisas</b>. Cada proposición establece una relación entre categorías o conjuntos de cosas, y de su conexión surge una conclusión necesaria.</p>
+        <p>Este tipo de razonamiento fue desarrollado por <b>Aristóteles</b>, quien lo consideró la base del pensamiento lógico, ya que busca determinar si una conclusión es <b>válida</b> por la estructura del argumento, no por el contenido de las palabras.</p>
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold">📘 ¿Qué es un silogismo?</h3>
+        <p>Un <b>silogismo</b> es un argumento compuesto por tres proposiciones:</p>
+        <ol class="list-decimal ml-6 text-sm">
+          <li><b>Premisa mayor:</b> afirma algo general.</li>
+          <li><b>Premisa menor:</b> relaciona un caso particular con lo general.</li>
+          <li><b>Conclusión:</b> une las ideas de ambas premisas.</li>
+        </ol>
+        <p>Además, contiene tres <b>términos</b>: término mayor (P), término menor (S) y término medio (M), que conecta las dos premisas y no aparece en la conclusión.</p>
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold">🧩 Estructura general</h3>
+        <p><b>Premisa mayor:</b> M – P<br><b>Premisa menor:</b> S – M<br><b>Conclusión:</b> S – P</p>
+        <blockquote class="border-l-4 pl-3 italic">Premisa mayor: Todos los humanos son mortales.<br>Premisa menor: Sócrates es humano.<br><b>Conclusión:</b> Sócrates es mortal. ✅</blockquote>
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold">💬 Tipos de proposiciones categóricas</h3>
+        <table class="w-full text-sm border">
+          <thead><tr class="bg-slate-100"><th>Tipo</th><th>Nombre</th><th>Ejemplo</th><th>Símbolo</th></tr></thead>
+          <tbody>
+            <tr><td class="border px-2">A</td><td class="border px-2">Universal afirmativa</td><td class="border px-2">Todos los perros son mamíferos.</td><td class="border px-2">Todo S es P</td></tr>
+            <tr><td class="border px-2">E</td><td class="border px-2">Universal negativa</td><td class="border px-2">Ningún pez es mamífero.</td><td class="border px-2">Ningún S es P</td></tr>
+            <tr><td class="border px-2">I</td><td class="border px-2">Particular afirmativa</td><td class="border px-2">Algunos gatos son negros.</td><td class="border px-2">Algún S es P</td></tr>
+            <tr><td class="border px-2">O</td><td class="border px-2">Particular negativa</td><td class="border px-2">Algunos pájaros no vuelan.</td><td class="border px-2">Algún S no es P</td></tr>
+          </tbody>
+        </table>
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold">⚙️ Reglas para un silogismo válido</h3>
+        <ul class="list-disc ml-6 text-sm">
+          <li>Tres términos exactos: no más, no menos.</li>
+          <li>El término medio debe aparecer en ambas premisas, pero no en la conclusión.</li>
+          <li>Debe estar distribuido al menos una vez.</li>
+          <li>Si un término está distribuido en la conclusión, también en su premisa.</li>
+          <li>No pueden existir dos premisas negativas.</li>
+          <li>Si una premisa es negativa, la conclusión también lo será.</li>
+          <li>Si ambas premisas son afirmativas, la conclusión también debe serlo.</li>
+        </ul>
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold">🧠 Importancia</h3>
+        <p>El estudio del silogismo categórico permite desarrollar el pensamiento crítico, evaluar argumentos y detectar errores lógicos. Es una herramienta clave en la filosofía, la argumentación y las matemáticas.</p>
+        <blockquote class="border-l-4 pl-3 italic mt-2">Premisa mayor: Todos los estudiantes son personas.<br>Premisa menor: Juan es estudiante.<br><b>Conclusión:</b> Juan es persona.</blockquote>
+<h4 class="text-lg font-semibold">📹 Video Explicativo</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/guK0LhHVT_4" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+      </div>
+    </div>
+        `,
+        questionBank: [
+  {q:"¿Qué es un silogismo categórico?",a:["Un argumento compuesto por dos premisas y una conclusión","Una proposición simple","Un razonamiento inductivo"],correct:0},
+
+  {q:"¿Cuántas proposiciones componen un silogismo categórico?",a:["Tres","Dos","Cuatro"],correct:0},
+
+  {q:"¿Cuál es el término medio en un silogismo?",a:["El término que aparece en ambas premisas pero no en la conclusión","El sujeto de la conclusión","El predicado de la conclusión"],correct:0},
+
+  {q:"¿Cuál es el término mayor?",a:["El predicado de la conclusión","El sujeto de la conclusión","El término medio"],correct:0},
+
+  {q:"¿Cuál es el término menor?",a:["El sujeto de la conclusión","El predicado de la conclusión","El término medio"],correct:0},
+
+  {q:"¿Cuántas figuras del silogismo categórico existen?",a:["Cuatro","Tres","Dos"],correct:0},
+
+  {q:"¿Qué forma proposicional corresponde al tipo A?",a:["Universal afirmativa","Universal negativa","Particular negativa"],correct:0},
+
+  {q:"¿Qué forma proposicional corresponde al tipo E?",a:["Universal negativa","Universal afirmativa","Particular afirmativa"],correct:0},
+
+  {q:"La proposición I corresponde a…",a:["Particular afirmativa","Universal afirmativa","Particular negativa"],correct:0},
+
+  {q:"La proposición O corresponde a…",a:["Particular negativa","Universal negativa","Particular afirmativa"],correct:0},
+
+  {q:"Un silogismo es válido cuando…",a:["La conclusión se sigue necesariamente de las premisas","Las premisas son verdaderas","El argumento es convincente"],correct:0},
+
+  {q:"¿Qué regla indica que el término medio debe estar distribuido al menos una vez?",a:["Regla del término medio","Regla del predicado","Regla del sujeto"],correct:0},
+
+  {q:"¿Qué ocurre si el término medio no está distribuido en ninguna premisa?",a:["El silogismo es inválido","El silogismo es verdadero","La conclusión es indeterminada"],correct:0},
+
+  {q:"¿Cuál de las siguientes es una falacia del silogismo?",a:["Término medio no distribuido","Conclusión afirmativa de premisas negativas","Conclusión universal de premisa particular"],correct:0},
+
+  {q:"Si ambas premisas son negativas, el silogismo es…",a:["Inválido","Válido","Contingente"],correct:0},
+
+  {q:"No se puede obtener conclusión afirmativa de…",a:["Premisas negativas","Premisas particulares","Premisas universales"],correct:0},
+
+  {q:"No se puede obtener conclusión universal de…",a:["Premisa particular","Dos premisas afirmativas","Dos premisas universales"],correct:0},
+
+  {q:"La figura de un silogismo depende de…",a:["La posición del término medio","El valor de verdad","La forma proposicional"],correct:0},
+
+  {q:"¿En qué figura el término medio es sujeto en ambas premisas?",a:["Primera figura","Segunda figura","Cuarta figura"],correct:0},
+
+  {q:"El siguiente es un ejemplo de silogismo en primera figura: 'Todos los mamíferos son animales. Todos los perros son mamíferos. Por lo tanto…'",a:["Todos los perros son animales","Algunos perros son animales","Ningún perro es animal"],correct:0}
+]
+
+
+      },
+{
+  id: 3,
+  title: "Capítulo 3: Lógica Proposicional",
+  theory: `<!-- Contenido exacto del capítulo 3 -->
+  <h2 class="text-xl font-bold">🧠 Lógica Proposicional</h2>
+  <p>La <b>lógica proposicional</b> es una rama de la lógica que estudia cómo se relacionan <b>proposiciones o enunciados</b> a través de <b>conectores lógicos</b>, y cómo estas relaciones permiten <b>inferir conclusiones válidas</b>.</p>
+  <p>A diferencia de la lógica categórica, que se centra en clases y categorías, la lógica proposicional se enfoca en <b>la verdad o falsedad de los enunciados</b> y en cómo combinarlos correctamente.</p>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">📘 ¿Qué es una proposición?</h3>
+  <p>Una <b>proposición</b> es un enunciado que puede ser <b>verdadero (V)</b> o <b>falso (F)</b>, pero no ambos.</p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>“El sol sale por el este.” ✅ Verdadero</li>
+    <li>“2 + 2 = 5.” ✅ Falso</li>
+    <li>“Juan está en su casa.” ✅ Puede ser verdadero o falso, según la realidad</li>
+  </ul>
+  <p><b>No son proposiciones:</b></p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>“¡Cierra la puerta!” ❌ Es un mandato</li>
+    <li>“¿Vendrás mañana?” ❌ Es una pregunta</li>
+    <li>“¡Qué bonito día!” ❌ Es una exclamación</li>
+  </ul>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">⚙️ Conectores lógicos</h3>
+  <table class="table-auto border border-slate-300 text-sm">
+    <tr><th class="border px-2">Conector</th><th class="border px-2">Símbolo</th><th class="border px-2">Lectura</th><th class="border px-2">Ejemplo</th></tr>
+    <tr><td class="border px-2">Negación</td><td>¬</td><td>No</td><td>¬p → No es verdad que p</td></tr>
+    <tr><td class="border px-2">Conjunción</td><td>∧</td><td>Y</td><td>p ∧ q → p y q son verdaderos</td></tr>
+    <tr><td class="border px-2">Disyunción</td><td>∨</td><td>O</td><td>p ∨ q → p o q (al menos uno es verdadero)</td></tr>
+    <tr><td class="border px-2">Condicional</td><td>→</td><td>Si… entonces</td><td>p → q → Si p es verdadero, q también lo es</td></tr>
+    <tr><td class="border px-2">Bicondicional</td><td>↔</td><td>Si y solo si</td><td>p ↔ q → p es verdadero si y solo si q es verdadero</td></tr>
+  </table>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">🧩 Tablas de verdad</h3>
+  <p>Para analizar la validez de un argumento proposicional se usan <b>tablas de verdad</b>, que muestran todas las combinaciones posibles de verdad o falsedad de las proposiciones.</p>
+  <h4 class="font-semibold">Ejemplo: Condicional (p → q)</h4>
+  <table class="table-auto border border-slate-300 text-sm">
+    <tr><th class="border px-2">p</th><th class="border px-2">q</th><th class="border px-2">p → q</th></tr>
+    <tr><td class="border px-2">V</td><td class="border px-2">V</td><td class="border px-2">V</td></tr>
+    <tr><td class="border px-2">V</td><td class="border px-2">F</td><td class="border px-2">F</td></tr>
+    <tr><td class="border px-2">F</td><td class="border px-2">V</td><td class="border px-2">V</td></tr>
+    <tr><td class="border px-2">F</td><td class="border px-2">F</td><td class="border px-2">V</td></tr>
+  </table>
+  <p><i>Nota:</i> El condicional solo es falso cuando <b>p es verdadero y q es falso</b>.</p>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">💬 Reglas de inferencia</h3>
+  <ul class="list-disc ml-6 text-sm">
+    <li><b>Modus ponens:</b> p → q, p ⊢ q<br>Ejemplo: Si estudio, aprobaré. Estudio. → Aprobé.</li>
+    <li><b>Modus tollens:</b> p → q, ¬q ⊢ ¬p<br>Ejemplo: Si llueve, el suelo se moja. El suelo no está mojado. → No llovió.</li>
+    <li><b>Silogismo hipotético:</b> p → q, q → r ⊢ p → r<br>Ejemplo: Si estudio, apruebo. Si apruebo, celebro. → Si estudio, celebro.</li>
+    <li><b>Disyunción:</b> p ∨ q, ¬p ⊢ q<br>Ejemplo: O voy al cine o al parque. No voy al cine. → Voy al parque.</li>
+  </ul>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">⚖️ Importancia de la lógica proposicional</h3>
+  <ul class="list-disc ml-6 text-sm">
+    <li>Analizar argumentos complejos paso a paso.</li>
+    <li>Detectar <b>falacias o errores</b> en razonamientos.</li>
+    <li>Aplicaciones en <b>informática, matemáticas, filosofía y ciencias</b>.</li>
+    <li>Base para el diseño de <b>circuitos digitales y programación</b>.</li>
+  </ul>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">✅ Ejemplo práctico</h3>
+  <p><b>Premisas:</b></p>
+  <ol class="list-decimal ml-6 text-sm">
+    <li>Si estudio, aprobaré. (p → q)</li>
+    <li>Estudio. (p)</li>
+  </ol>
+  <p><b>Conclusión:</b> Aprobaré. (q) ✅</p>
+  <p><b>Premisas combinadas con conectores:</b></p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>“Estudio y hago tareas” → p ∧ r</li>
+    <li>“Si estudio y hago tareas, aprobaré” → (p ∧ r) → q</li>
+  </ul>}`,
+  questionBank: [
+  {q:"¿Qué estudia la lógica proposicional?",a:["Las relaciones entre proposiciones mediante conectores","Las propiedades de los objetos","El significado de los términos"],correct:0},
+
+  {q:"¿Qué es una proposición?",a:["Un enunciado que puede ser verdadero o falso","Una pregunta","Una orden"],correct:0},
+
+  {q:"El conector lógico '∧' corresponde a…",a:["Conjunción","Disyunción","Condicional"],correct:0},
+
+  {q:"El conector lógico '∨' corresponde a…",a:["Disyunción","Conjunción","Negación"],correct:0},
+
+  {q:"El condicional '→' se lee como…",a:["Si…, entonces…","O bien… o bien…","No es el caso que…"],correct:0},
+
+  {q:"La bicondicional '↔' expresa que…",a:["Ambas proposiciones tienen el mismo valor de verdad","Una implica a la otra sin reciprocidad","Son proposiciones independientes"],correct:0},
+
+  {q:"La negación de una proposición verdadera es…",a:["Falsa","Verdadera","No se puede saber"],correct:0},
+
+  {q:"La negación de una proposición falsa es…",a:["Verdadera","Falsa","Contingente"],correct:0},
+
+  {q:"En la disyunción inclusiva (∨), la proposición solo es falsa cuando…",a:["Ambas proposiciones son falsas","Ambas proposiciones son verdaderas","Una es verdadera y la otra falsa"],correct:0},
+
+  {q:"El condicional P → Q es falso únicamente cuando…",a:["P es verdadera y Q es falsa","P es falsa y Q es verdadera","Ambas son falsas"],correct:0},
+
+  {q:"La expresión ¬(P ∧ Q) es equivalente a…",a:["¬P ∨ ¬Q","P ∨ Q","P → Q"],correct:0},
+
+  {q:"La expresión ¬(P ∨ Q) es equivalente a…",a:["¬P ∧ ¬Q","P ∧ Q","P ↔ Q"],correct:0},
+
+  {q:"Una proposición es tautológica cuando…",a:["Es verdadera en todas las interpretaciones","Es siempre falsa","Depende de sus componentes"],correct:0},
+
+  {q:"Una contradicción es…",a:["Siempre falsa","Siempre verdadera","Depende del contexto"],correct:0},
+
+  {q:"Una contingencia es una proposición que es…",a:["A veces verdadera y a veces falsa","Siempre verdadera","Siempre falsa"],correct:0},
+
+  {q:"¿Cuál de las siguientes expresiones es una proposición compuesta?",a:["(P ∧ Q) → R","P","Q"],correct:0},
+
+  {q:"¿Cuál es la forma correcta de la contraposición del condicional P → Q?",a:["¬Q → ¬P","¬P → ¬Q","P ↔ Q"],correct:0},
+
+  {q:"Dos proposiciones son equivalentes cuando…",a:["Tienen el mismo valor de verdad en todas las interpretaciones","Tienen el mismo número de conectores","Son ambas verdaderas"],correct:0},
+
+  {q:"La disyunción exclusiva (XOR) es verdadera cuando…",a:["Exactamente una proposición es verdadera","Ambas son verdaderas","Ambas son falsas"],correct:0},
+
+  {q:"La expresión (P ∨ Q) ∧ ¬P es verdadera cuando…",a:["Q es verdadera y P es falsa","P es verdadera y Q es falsa","P y Q son falsas"],correct:0}
+]
+
+},
+{
+  id: 4,
+  title: "Capítulo 4: Cálculo de Predicados",
+  theory: `
+  <h2 class="text-xl font-bold">🧠 Cálculo de Predicados</h2>
+  <p>El <b>cálculo de predicados</b> (o lógica de primer orden) extiende la lógica proposicional permitiendo razonar sobre <b>objetos individuales</b> y sus <b>propiedades</b>, no solo sobre proposiciones completas.</p>
+  <p>Mientras la lógica proposicional indica si un enunciado es verdadero o falso, el cálculo de predicados permite analizar <b>quién o qué cumple cierta propiedad</b> y hacer inferencias más precisas.</p>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">📘 Elementos básicos</h3>
+  <ol class="list-decimal ml-6 text-sm">
+    <li><b>Constantes:</b> objetos específicos. Ejemplo: a = "Juan", b = "La Luna"</li>
+    <li><b>Variables:</b> objetos genéricos. Ejemplo: x, y, z</li>
+    <li><b>Predicados:</b> propiedades o relaciones. Ejemplo: H(x) → "x es humano", M(x,y) → "x ama a y"</li>
+    <li><b>Cuantificadores:</b> expresan generalidad o existencia.
+      <ul class="list-disc ml-6 text-sm">
+        <li>Universal (∀): "Para todo…" Ejemplo: ∀x H(x) → "Todos los x son humanos"</li>
+        <li>Existencial (∃): "Existe al menos uno…" Ejemplo: ∃x H(x) → "Existe al menos un x que es humano"</li>
+      </ul>
+    </li>
+    <li><b>Conectores lógicos:</b> como en lógica proposicional (¬, ∧, ∨, →, ↔)</li>
+  </ol>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">🧩 Sintaxis básica</h3>
+  <p>Un enunciado combina predicados, constantes, variables y cuantificadores.</p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>Todos los humanos son mortales: ∀x (H(x) → M(x))</li>
+    <li>Alguien ama a María: ∃x A(x, m)</li>
+    <li>Ningún gato es perro: ∀x (G(x) → ¬P(x))</li>
+    <li>Si alguien estudia, aprobará el examen: ∀x (E(x) → A(x))</li>
+  </ul>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">⚙️ Traducción de lenguaje natural a símbolos</h3>
+  <ul class="list-disc ml-6 text-sm">
+    <li>Todos los… / Cada… → ∀</li>
+    <li>Existe… / Algún… → ∃</li>
+    <li>No… / Ningún… → ¬ combinado con ∀ o ∃ según el contexto</li>
+    <li>Y → ∧</li>
+    <li>O → ∨</li>
+    <li>Si… entonces… → →</li>
+  </ul>
+  <p>Ejemplo práctico: "Todos los estudiantes que estudian aprueban" → ∀x (E(x) ∧ S(x) → A(x))</p>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">💬 Reglas de inferencia</h3>
+  <ol class="list-decimal ml-6 text-sm">
+    <li><b>Generalización universal:</b> Si p(x) es verdadero para cualquier x, entonces ∀x p(x)</li>
+    <li><b>Instanciación universal:</b> Si ∀x p(x) es verdadero, entonces p(a) es verdadero para cualquier constante a</li>
+    <li><b>Existencia:</b> Si p(a) es verdadero para algún a, entonces ∃x p(x) es verdadero</li>
+    <li><b>Eliminación existencial:</b> Si ∃x p(x) es verdadero, podemos introducir una constante temporal c tal que p(c)</li>
+  </ol>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">⚖️ Importancia del cálculo de predicados</h3>
+  <ul class="list-disc ml-6 text-sm">
+    <li>Razonar sobre objetos individuales y sus relaciones</li>
+    <li>Representar formalmente el conocimiento en ciencias, filosofía e informática</li>
+    <li>Base para inteligencia artificial, bases de datos y programación lógica</li>
+    <li>Ampliar la lógica proposicional para argumentos más complejos y precisos</li>
+  </ul>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">✅ Ejemplo práctico</h3>
+  <p><b>Enunciado:</b> "Todos los humanos son mortales y Sócrates es humano"</p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>Premisa 1: ∀x (H(x) → M(x))</li>
+    <li>Premisa 2: H(s) (donde s = Sócrates)</li>
+    <li>Conclusión: M(s) → Sócrates es mortal ✅</li>
+  </ul>
+<h4 class="text-lg font-semibold">📹 Video Explicativo</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/UfWEx7ayqwQ" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+      </div>
+    </div>
+  `,
+  questionBank: [
+  {q:"¿Qué es un predicado en lógica?",a:["Una expresión que atribuye una propiedad a un objeto","Una proposición cerrada","Un conectivo lógico"],correct:0},
+
+  {q:"¿Qué representa un cuantificador?",a:["La cantidad de elementos a los que se aplica un predicado","La forma del razonamiento","El valor de verdad"],correct:0},
+
+  {q:"El símbolo ∀ significa…",a:["Para todo","Existe","No existe"],correct:0},
+
+  {q:"El símbolo ∃ significa…",a:["Existe","Para todo","Es falso"],correct:0},
+
+  {q:"¿Qué tipo de expresión es P(x)?",a:["Una proposición abierta","Una proposición cerrada","Una constante"],correct:0},
+
+  {q:"Una proposición abierta se convierte en proposición cerrada cuando…",a:["Se cuantifica","Se niega","Se sustituye un término"],correct:0},
+
+  {q:"La expresión ∀x P(x) significa…",a:["Para todo x, P(x) es verdadero","Existe al menos un x tal que P(x)","Exactamente un x cumple P(x)"],correct:0},
+
+  {q:"La expresión ∃x P(x) significa…",a:["Existe al menos un x tal que P(x) es verdadero","Todos los x cumplen P(x)","P(x) es falso para todo x"],correct:0},
+
+  {q:"¿Cuál es la negación correcta de ∀x P(x)?",a:["∃x ¬P(x)","¬∀x P(x)","∀x ¬P(x)"],correct:0},
+
+  {q:"¿Cuál es la negación correcta de ∃x P(x)?",a:["∀x ¬P(x)","¬∀x P(x)","∃x ¬P(x)"],correct:0},
+
+  {q:"En lógica de predicados, el 'universo del discurso' se refiere a…",a:["El conjunto de objetos sobre los que se habla","El conjunto de proposiciones verdaderas","El dominio numérico de la lógica"],correct:0},
+
+  {q:"Si P(x): 'x es par', ¿qué expresa ∃x P(x)?",a:["Existe al menos un número par","Todos los números son pares","Ningún número es par"],correct:0},
+
+  {q:"Si P(x): 'x es mayor que 0', ¿qué expresa ∀x P(x)?",a:["Todos los elementos del dominio son mayores que 0","Existe algún x mayor que 0","No hay x mayor que 0"],correct:0},
+
+  {q:"La fórmula ∀x (P(x) → Q(x)) se lee como…",a:["Para todo x, si P(x) entonces Q(x)","Existe un x tal que P implica Q","P implica Q para algunos x"],correct:0},
+
+  {q:"La fórmula ∃x (P(x) ∧ Q(x)) significa…",a:["Existe un x que cumple P y Q","Todos los x cumplen P y Q","Si existe P, entonces existe Q"],correct:0},
+
+  {q:"¿Qué tipo de variable aparece en la expresión ∀x P(x)?",a:["Variable ligada","Variable libre","Constante"],correct:0},
+
+  {q:"¿Cuándo una variable es libre?",a:["Cuando no está afectada por un cuantificador","Cuando pertenece al universo del discurso","Cuando es una constante"],correct:0},
+
+  {q:"¿Qué representa una constante dentro del cálculo de predicados?",a:["Un objeto específico del dominio","Un predicado fijo","Un cuantificador"],correct:0},
+
+  {q:"¿Qué significa ∀x ∃y R(x,y)?",a:["Para todo x existe un y tal que R(x,y)","Existe un y para el cual todos los x cumplen R","R es verdadero para ningún par (x,y)"],correct:0},
+
+  {q:"La proposición ∃x ∀y R(x,y) afirma que…",a:["Existe un x que se relaciona con todos los y","Todos los x se relacionan con algún y","Para ningún x existe relación con y"],correct:0}
+]
+
+
+},
+{
+  id: 5,
+  title: "Capítulo 5: Conjuntos y Álgebra de Boole",
+  theory: `
+  <h2 class="text-xl font-bold">🧠 Conjuntos y Álgebra de Boole</h2>
+  <p>La teoría de conjuntos y el álgebra de Boole son herramientas fundamentales en matemáticas, informática y lógica. Permiten organizar elementos, realizar operaciones entre ellos y representar razonamientos lógicos de manera formal.</p>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">📘 1. Teoría de Conjuntos</h3>
+  <p>Un <b>conjunto</b> es una colección bien definida de objetos, llamados <b>elementos</b>.</p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>A = {1,2,3,4} → conjunto de números</li>
+    <li>B = {manzana, plátano, pera} → conjunto de frutas</li>
+    <li>C = ∅ → conjunto vacío</li>
+  </ul>
+  <p><b>Notación:</b></p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>Pertenencia: x ∈ A → "x pertenece al conjunto A"</li>
+    <li>No pertenencia: x ∉ A → "x no pertenece al conjunto A"</li>
+    <li>Subconjunto: A ⊆ B → todos los elementos de A están en B</li>
+    <li>Conjunto potencia: 𝒫(A) → conjunto de todos los subconjuntos de A</li>
+  </ul>
+  <p><b>Operaciones:</b></p>
+  <ol class="list-decimal ml-6 text-sm">
+    <li>Unión (∪): elementos en A o B. Ej: A = {1,2}, B = {2,3} → A ∪ B = {1,2,3}</li>
+    <li>Intersección (∩): elementos en A y B. Ej: A ∩ B = {2}</li>
+    <li>Diferencia (−): elementos de A no en B. Ej: A − B = {1}</li>
+    <li>Complemento (¬A o A’): elementos no en A respecto a U. Ej: U={1,2,3,4}, A={1,2} → A’={3,4}</li>
+  </ol>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">⚙️ 2. Álgebra de Boole</h3>
+  <p>El álgebra de Boole permite trabajar con valores binarios (0/1) y operaciones lógicas, útil en computación y lógica digital.</p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>Variables booleanas: X, Y, Z</li>
+    <li>Constantes: 0 (falso), 1 (verdadero)</li>
+    <li>Operaciones: similares a operaciones de conjuntos</li>
+  </ul>
+  <table class="table-auto border border-slate-300 text-sm mt-2">
+    <tr class="bg-slate-100"><th class="border px-2">Operación</th><th class="border px-2">Símbolo</th><th class="border px-2">Significado</th><th class="border px-2">Ejemplo</th></tr>
+    <tr><td class="border px-2">AND</td><td class="border px-2">∧</td><td class="border px-2">Conjunción (Y)</td><td class="border px-2">1 ∧ 0 = 0</td></tr>
+    <tr><td class="border px-2">OR</td><td class="border px-2">∨</td><td class="border px-2">Disyunción (O)</td><td class="border px-2">1 ∨ 0 = 1</td></tr>
+    <tr><td class="border px-2">NOT</td><td class="border px-2">¬</td><td class="border px-2">Negación (NO)</td><td class="border px-2">¬1 = 0</td></tr>
+    <tr><td class="border px-2">XOR</td><td class="border px-2">⊕</td><td class="border px-2">O exclusivo</td><td class="border px-2">1 ⊕ 1 = 0, 1 ⊕ 0 = 1</td></tr>
+  </table>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">💬 Leyes fundamentales del álgebra de Boole</h3>
+  <ol class="list-decimal ml-6 text-sm">
+    <li>Identidad: X ∨ 0 = X, X ∧ 1 = X</li>
+    <li>Nulidad: X ∨ 1 = 1, X ∧ 0 = 0</li>
+    <li>Idempotencia: X ∨ X = X, X ∧ X = X</li>
+    <li>Complementación: X ∨ ¬X = 1, X ∧ ¬X = 0</li>
+    <li>Conmutativa, asociativa y distributiva: X ∨ Y = Y ∨ X, (X ∨ Y) ∨ Z = X ∨ (Y ∨ Z), X ∧ (Y ∨ Z) = (X ∧ Y) ∨ (X ∧ Z)</li>
+    <li>Leyes de De Morgan: ¬(X ∧ Y) = ¬X ∨ ¬Y, ¬(X ∨ Y) = ¬X ∧ ¬Y</li>
+  </ol>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">💬 Aplicaciones</h3>
+  <ul class="list-disc ml-6 text-sm">
+    <li>Conjuntos: organizar información, bases de datos, probabilidades</li>
+    <li>Álgebra de Boole: electrónica digital, diseño de circuitos, programación lógica, inteligencia artificial</li>
+  </ul>
+  <hr class="my-4">
+  <h3 class="text-lg font-semibold">✅ Ejemplo práctico</h3>
+  <p><b>Conjuntos:</b></p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>A = {1,2,3}, B = {2,3,4}</li>
+    <li>A ∪ B = {1,2,3,4}</li>
+    <li>A ∩ B = {2,3}</li>
+  </ul>
+  <p><b>Álgebra de Boole:</b></p>
+  <ul class="list-disc ml-6 text-sm">
+    <li>X = 1, Y = 0</li>
+    <li>X ∧ Y = 0</li>
+    <li>X ∨ Y = 1</li>
+    <li>¬X = 0</li>
+  </ul>
+<h4 class="text-lg font-semibold">📹 Video Explicativo</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/vOSCevaytLA" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+      </div>
+    </div>
+  `,
+  questionBank: [
+  {q:"¿Qué es un conjunto?",a:["Una colección de elementos bien definidos","Un número entero","Una proposición"],correct:0},
+
+  {q:"El símbolo ∈ significa…",a:["Pertenece a","Está contenido en","Es igual a"],correct:0},
+
+  {q:"El símbolo ⊆ indica…",a:["Subconjunto","Conjunto potencia","Diferencia de conjuntos"],correct:0},
+
+  {q:"La unión de dos conjuntos A ∪ B contiene…",a:["Todos los elementos que están en A, en B o en ambos","Solo elementos comunes","Elementos de A menos B"],correct:0},
+
+  {q:"La intersección A ∩ B contiene…",a:["Elementos comunes entre A y B","Elementos que están solo en A","Todos los elementos de ambos conjuntos"],correct:0},
+
+  {q:"La diferencia A − B contiene…",a:["Elementos que están en A pero no en B","Elementos que están en B pero no en A","Elementos comunes"],correct:0},
+
+  {q:"El complemento de un conjunto A (A′) es…",a:["Los elementos que no pertenecen a A","Los elementos comunes","La unión de dos conjuntos"],correct:0},
+
+  {q:"¿Cuál es el conjunto vacío?",a:["∅","{0}","{ } contiene un elemento"],correct:0},
+
+  {q:"Si A = {1,2,3} y B = {3,4}, entonces A ∩ B es…",a:["{3}","{1,2,4}","{1,2,3,4}"],correct:0},
+
+  {q:"Si A = {a,b,c} y B = {c,d}, entonces A ∪ B es…",a:["{a,b,c,d}","{c}","{a,b}"],correct:0},
+
+  {q:"En álgebra de Boole, el operador AND corresponde a…",a:["Intersección","Unión","Complemento"],correct:0},
+
+  {q:"En álgebra de Boole, el operador OR corresponde a…",a:["Unión","Intersección","Diferencia"],correct:0},
+
+  {q:"En álgebra de Boole, la negación representa…",a:["Complemento","Intersección","Unión"],correct:0},
+
+  {q:"La ley conmutativa se cumple en…",a:["A ∪ B = B ∪ A","A − B = B − A","A′ = A"],correct:0},
+
+  {q:"La ley distributiva de la unión es…",a:["A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)","A ∩ (B − C) = A − (B ∪ C)","A′ ∪ B′ = (A ∪ B)"],correct:0},
+
+  {q:"La ley distributiva de la intersección es…",a:["A ∩ (B ∪ C) = (A ∩ B) ∩ (A ∩ C)","A ∪ (B ∩ C) = A ∪ B","A ⊆ B"],correct:0},
+
+  {q:"El conjunto potencia de A es…",a:["El conjunto de todos los subconjuntos de A","La intersección de A","La negación de A"],correct:0},
+
+  {q:"En álgebra booleana, A ∧ ¬A es siempre…",a:["Falso","Verdadero","Indeterminado"],correct:0},
+
+  {q:"En álgebra booleana, A ∨ ¬A es siempre…",a:["Verdadero","Falso","Contingente"],correct:0},
+
+  {q:"Si el universo U = {1,2,3,4,5} y A = {2,4}, entonces el complemento A′ es…",a:["{1,3,5}","{2,4}","{ }"],correct:0}
+]
+
+}
+
+    ];
+
+    /* -------------------------
+       Funciones de usuario y sesión
+       ------------------------- */
+function getRandomQuestions(bank, amount) {
+  const shuffled = [...bank].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, amount);
+}
+
+    function getCurrentUserEmail(){
+      const session = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+      return session ? session.email : null;
+    }
+
+    function getUserProgress() {
+      const email = getCurrentUserEmail();
+      if(!email) return {completed: []};
+      const allProgress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
+      return allProgress[email] || {completed: []};
+    }
+
+    function saveUserProgress(progress){
+      const email = getCurrentUserEmail();
+      if(!email) return;
+      const allProgress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
+      allProgress[email] = progress;
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(allProgress));
+    }
+
+    function getUserScores() {
+      const email = getCurrentUserEmail();
+      if(!email) return {};
+      const allScores = JSON.parse(localStorage.getItem(SCORES_KEY) || "{}");
+      return allScores[email] || {};
+    }
+
+    function saveUserScores(scores){
+      const email = getCurrentUserEmail();
+      if(!email) return;
+      const allScores = JSON.parse(localStorage.getItem(SCORES_KEY) || "{}");
+      allScores[email] = scores;
+      localStorage.setItem(SCORES_KEY, JSON.stringify(allScores));
+    }
+
+    /* -------------------------
+       Funciones de interfaz y lógica
+       ------------------------- */
+
+    function showRegister(){
+      authTitle.textContent="Registro";
+      loginForm.classList.add("hidden");
+      registerForm.classList.remove("hidden");
+    }
+    function showLogin(){
+      authTitle.textContent="Iniciar Sesión";
+      registerForm.classList.add("hidden");
+      loginForm.classList.remove("hidden");
+    }
+
+    function register(){
+      const name = regName.value.trim(), email = regEmail.value.trim(), pass = regPass.value, conf = regConfirm.value;
+      const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+      if(!name || !email || !pass) return registerError.textContent = "Completa todos los campos";
+      if(pass !== conf) return registerError.textContent = "Las contraseñas no coinciden";
+      if(users.find(u => u.email === email)) return registerError.textContent = "Ya existe una cuenta con ese correo";
+      users.push({name, email, pass});
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+      localStorage.setItem(SESSION_KEY, JSON.stringify({name, email}));
+      showMenu(name);
+    }
+
+    function login(){
+      const email = loginEmail.value.trim(), pass = loginPass.value;
+      const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+      const user = users.find(u => u.email === email && u.pass === pass);
+      if(!user) return loginError.textContent = "Credenciales incorrectas";
+      localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+      showMenu(user.name);
+    }
+
+    function logout(){
+      localStorage.removeItem(SESSION_KEY);
+      menu.classList.add("hidden");
+      auth.classList.remove("hidden");
+    }
+
+    function showMenu(name){
+      auth.classList.add("hidden");
+      menu.classList.remove("hidden");
+      userName.textContent = name;
+      updateProgress();
+    }
+
+    function startCourse(){
+      menu.classList.add("hidden");
+      curso.classList.remove("hidden");
+      const list = document.getElementById("chapters");
+      list.innerHTML = "";
+
+      const progress = getUserProgress();
+      const scores = getUserScores();
+
+      chapters.forEach(ch => {
+        const done = progress.completed.includes(ch.id);
+        let locked = false;
+        if(ch.id === 2){
+          const s1 = parseFloat(scores[1] ?? -1);
+          if(isNaN(s1) || s1 < 70) locked = true;
+        }
+
+if(ch.id === 3){
+          const s2 = parseFloat(scores[2] ?? -1);
+          if(isNaN(s2) || s2 < 70) locked = true;
+        }
+if(ch.id === 4){
+          const s3 = parseFloat(scores[3] ?? -1);
+          if(isNaN(s3) || s3 < 70) locked = true;
+        }
+if(ch.id === 5){
+          const s4 = parseFloat(scores[4] ?? -1);
+          if(isNaN(s4) || s4 < 70) locked = true;
+        }
+        const scoreText = scores[ch.id] !== undefined ? `<p class="text-sm text-slate-600 mt-2">Última nota: <span class="font-medium">${Math.round(scores[ch.id])}%</span></p>` : '';
+        list.innerHTML += `
+        <div class="p-4 border rounded-lg ${done ? 'bg-green-50 border-green-200' : 'bg-white'}">
+          <h3 class="font-semibold">${ch.title}</h3>
+          <p class="text-sm mb-3 text-slate-500">Contiene ${ch.questionBank.length} preguntas.</p>
+          ${scoreText}
+          <div class="mt-3">
+            ${locked ? 
+              '<button class="bg-slate-200 text-slate-400 px-3 py-2 rounded-md cursor-not-allowed">Capítulo bloqueado (aprende el anterior)</button>' :
+              `<button onclick="openChapter(${ch.id})" class="bg-indigo-600 text-white px-3 py-2 rounded-md">Ir al capítulo</button>`
+            }
+          </div>
+          ${done ? '<p class="text-green-600 text-sm mt-2">✅ Completado</p>' : ''}
+        </div>`;
+      });
+    }
+
+    function backToMenu(){
+      curso.classList.add("hidden");
+      menu.classList.remove("hidden");
+      updateProgress();
+    }
+
+    function openChapter(id){
+      currentChapterId = id;
+      curso.classList.add("hidden");
+      capitulo.classList.remove("hidden");
+      const ch = chapters.find(c => c.id === id);
+      if(!ch) return;
+      titulo.textContent = ch.title;
+      contenido.innerHTML = ch.theory;
+
+      quiz.innerHTML = "";
+      resultado.textContent = "";
+      scoreBar.style.width = "0";
+      calificacion.classList.add("hidden");
+      document.getElementById("practica").classList.add("hidden");
+      document.getElementById("btnPrueba").classList.remove("hidden");
+
+      // Seleccionar preguntas aleatorias
+const quizQuestions = getRandomQuestions(ch.questionBank, 8);  // puedes cambiar 8 por otro número
+ch.questionBank = quizQuestions;  // reemplaza el quiz actual
+
+quiz.innerHTML = "";  
+quizQuestions.forEach((q, i) => {
+  quiz.innerHTML += `
+    <div class="my-3">
+      <p class="font-medium">${i+1}. ${q.q}</p>
+      ${q.a.map((opt, j) => `
+        <label class="block w-full p-2 border rounded hover:bg-indigo-50 my-1 cursor-pointer">
+          <input type="radio" name="q${i}" value="${j}" class="mr-2">${opt}
+        </label>`).join("")}
+    </div>`;
+});
+
+
+      const scores = getUserScores();
+      if(scores[id] !== undefined){
+        const saved = Math.round(scores[id]);
+        calificacion.classList.remove("hidden");
+        scoreBar.style.width = saved + "%";
+        scoreText.textContent = `Última nota registrada: ${saved}%`;
+      } else {
+        calificacion.classList.add("hidden");
+      }
+    }
+
+    function mostrarPrueba(){
+      practica.classList.remove("hidden");
+      btnPrueba.classList.add("hidden");
+      window.scrollTo({top: practica.offsetTop, behavior: "smooth"});
+    }
+
+    function terminarPrueba(){
+      if(currentChapterId === null) return;
+      const ch = chapters.find(c => c.id === currentChapterId);
+      if(!ch) return;
+      let total = ch.questionBank.length;
+      let correct = 0;
+      ch.questionBank.forEach((q, i) => {
+        const ans = document.querySelector(`input[name='q${i}']:checked`);
+        if(ans && parseInt(ans.value) === q.correct) correct++;
+      });
+      let score = (correct / total) * 100;
+
+      calificacion.classList.remove("hidden");
+      scoreBar.style.width = score + "%";
+      let msg = score >= 90 ? "Excelente 🏆" : score >= 70 ? "Muy bien 👍" : score >= 50 ? "Puedes mejorar 💪" : "Debes repasar 🧩";
+      scoreText.textContent = `Obtuviste ${correct} de ${total} (${Math.round(score)}%) — ${msg}`;
+      resultado.textContent = "Prueba finalizada.";
+
+      const scores = getUserScores();
+      scores[currentChapterId] = score;
+      saveUserScores(scores);
+
+      updateProgress();
+    }
+
+    function repetirPrueba(){
+      if(currentChapterId === null) return;
+      openChapter(currentChapterId);
+      mostrarPrueba();
+    }
+
+    function terminarCapitulo(){
+      const id = currentChapterId;
+      if(id === null) return;
+      let progress = getUserProgress();
+      if(!progress.completed.includes(id)){
+        progress.completed.push(id);
+        saveUserProgress(progress);
+      }
+      backToCourse();
+    }
+
+    function backToCourse(){
+      capitulo.classList.add("hidden");
+      curso.classList.remove("hidden");
+      startCourse();
+      updateProgress();
+    }
+
+    function updateProgress(){
+      const p = getUserProgress();
+      const percent = Math.round((p.completed.length / chapters.length) * 100);
+      progressText.textContent = percent + "%";
+      progressBar.style.width = percent + "%";
+    }
+
+    window.onload = () => {
+      const s = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+      if(s) showMenu(s.name);
+    };
+function irMatematicas() {
+  window.location.href = "https://thepiruyf7-dotcom.github.io/paginamatematicaspma.github.io/";
+}
+
+  </script>
+</body>
+</html>
